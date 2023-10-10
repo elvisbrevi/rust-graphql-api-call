@@ -25,8 +25,15 @@ struct Data {
     user: User,
 }
 
+fn main() {
+    match test() {
+        Ok(response_str) => println!("{}", response_str),
+        Err(e) => println!("Error: {}", e),
+    }
+}
+
 #[tokio::main]
-async fn main() -> Result<(), Box<dyn std::error::Error>> {
+async fn test() -> Result<String, Box<dyn std::error::Error>> {
     let query = "
     {
         user(username:\"elvisbrevi\") {
@@ -53,7 +60,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     // Serialize the response to a pretty-printed JSON string and print it
     let formatted_response = serde_json::to_string_pretty(&response)?;
-    println!("{}", formatted_response);
+    //println!("{}", formatted_response);
 
-    Ok(())
+    Ok(formatted_response)
 }
